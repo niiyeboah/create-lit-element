@@ -13,6 +13,7 @@
   "author": "--username-- <--usermail-->",
   "license": "Apache-2.0",
   "files": [
+    "*",
     "*.js",
     "src",
     "theme"

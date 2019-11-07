@@ -1,4 +1,4 @@
-# `create-lit-element`
+# create-lit-element
 
 This is an [`npm init <initializer>`](https://docs.npmjs.com/cli/init#description) for creating [`LitElement`](https://lit-element.polymer-project.org/) based [web components](https://www.webcomponents.org/introduction).
 
