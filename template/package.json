@@ -1,0 +1,97 @@
+{
+  "name": "create-lit-element",
+  "version": "0.1.0",
+  "description": "create-lit-element",
+  "main": "create-lit-element.js",
+  "module": "create-lit-element.js",
+  "keywords": [
+    "create-lit-element",
+    "web-components",
+    "lit-element",
+    "lit-html"
+  ],
+  "author": "--username-- <--usermail-->",
+  "license": "Apache-2.0",
+  "files": [
+    "*.js",
+    "src",
+    "theme"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "build": "tsc",
+    "gemini": "gemini update test/visual",
+    "lint": "npm-run-all --parallel lint:*",
+    "lint:css": "stylelint src/*.ts test/*.ts",
+    "lint:js": "eslint src theme test --ext .ts --ignore-path .gitignore",
+    "test": "karma start",
+    "test:sauce": "cross-env TEST_PLATFORM=sauce karma start",
+    "test:visual": "gemini test test/visual",
+    "prestart": "wca analyze src/create-lit-element.ts --format json --outFile custom-elements.json",
+    "start": "es-dev-server --node-resolve --port 3000 --open",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {
+    "lit-element": "^2.1.0",
+    "lit-html": "^1.0.0",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@babel/preset-typescript": "^7.6.0",
+    "@open-wc/karma-esm": "^2.9.1",
+    "@open-wc/testing-helpers": "^1.2.3",
+    "@types/chai": "^4.2.4",
+    "@types/expect": "^1.20.4",
+    "@types/mocha": "^5.2.7",
+    "@types/sinon": "^7.5.0",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "@webcomponents/webcomponentsjs": "^2.3.0",
+    "api-viewer-element": "^0.2.0",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.7",
+    "cross-env": "^6.0.3",
+    "es-dev-server": "^1.20.0",
+    "eslint": "^6.6.0",
+    "eslint-config-vaadin": "^0.3.0",
+    "gemini": "^7.5.1",
+    "gemini-esm": "^0.1.0",
+    "gemini-sauce": "^1.0.2",
+    "husky": "^3.0.9",
+    "karma": "^4.4.1",
+    "karma-chai": "0.1.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage-istanbul-reporter": "^2.1.0",
+    "karma-firefox-launcher": "^1.2.0",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-sauce-launcher": "^2.0.2",
+    "karma-sinon": "^1.0.5",
+    "karma-source-map-support": "^1.4.0",
+    "lint-staged": "^9.4.2",
+    "magi-cli": "^0.23.0",
+    "mocha": "^6.2.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "sinon": "^7.5.0",
+    "stylelint": "^11.1.1",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-config-vaadin": "^0.1.4",
+    "stylelint-processor-styled-components": "^1.8.0",
+    "typescript": "^3.6.4",
+    "web-component-analyzer": "^0.1.18"
+  }
+}
