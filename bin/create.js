@@ -29,6 +29,7 @@ const modifyFiles = [
   'src/create-lit-element.ts',
   'test/unit/sample.test.ts'
 ];
+
 const renameFiles = [
   ['create-lit-element.ts', 'create-lit-element.ts'],
   ['src/create-lit-element.ts', 'src/create-lit-element.ts']
@@ -192,7 +193,7 @@ function setupElement(elementname, elementdescription) {
   if (!defaultDirectory)  {
     createTargetDirectory();
   }
-  
+
   copyFilesToTarget();
 
   modifyContents(elementname, elementdescription, username, usermail);
@@ -302,7 +303,7 @@ function finalize() {
   // Remove '*' from template files
   let jsonPackage = path.resolve(targetDirectory, 'package.json');
   const pkg = JSON.parse(readFileSync(jsonPackage));
-  pkg.files = pkg.files.slice(1);
+  pkg.files = pkg.files.slice(2);
   writeFileSync(jsonPackage, JSON.stringify(pkg, null, 2));
   console.log(colors.cyan('Postinstall script has been removed'));
 
