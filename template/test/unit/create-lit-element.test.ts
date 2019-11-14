@@ -1,5 +1,5 @@
 import { fixture, html } from '@open-wc/testing-helpers';
-import { CreateLitElement } from '../../src/create-lit-element.js';
+import { CreateLitElement } from '../../src/create-lit-element';
 
 const { expect } = chai;
 

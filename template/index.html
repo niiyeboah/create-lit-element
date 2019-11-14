@@ -5,7 +5,21 @@
     <title>create-lit-element</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <style>
+      body {
+        margin: 0;
+      }
+
+      api-viewer {
+        margin: 1rem auto 0;
+      }
+
+      @media(max-width: 799px) {
+        api-viewer {
+          margin: 0;
+        }
+      }
+    </style>
   </head>
   <body>
     <api-viewer src="custom-elements.json"></api-viewer>

@@ -1,4 +1,5 @@
-import { html, css, customElement, LitElement } from 'lit-element';
+import { html, css, customElement } from 'lit-element';
+import { VaadinElement } from '@vaadin/element-base/vaadin-element.js';
 
 /**
  * `<create-lit-element>` --elementdescription--
@@ -6,7 +7,7 @@ import { html, css, customElement, LitElement } from 'lit-element';
  * @element create-lit-element
  */
 @customElement('create-lit-element')
-class CreateLitElement extends LitElement {
+class CreateLitElement extends VaadinElement {
   static get is() {
     return 'create-lit-element';
   }

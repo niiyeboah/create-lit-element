@@ -31,3 +31,7 @@ Add `<create-lit-element>` element to the page.
 1. When in the `create-lit-element` directory, run `npm install` to install dependencies.
 
 1. Run `npm start` to open the demo.
+
+## Cross-browser Testing
+
+Cross-browser testing platform for open source provided by [Sauce Labs](https://saucelabs.com/open-sauce).

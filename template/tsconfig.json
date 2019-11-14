@@ -18,6 +18,7 @@
   "include": [
     "create-lit-element.ts",
     "src",
-    "test"
+    "test",
+    "node_modules/@vaadin/themable-element/custom_typings/*.d.ts"
   ]
 }
