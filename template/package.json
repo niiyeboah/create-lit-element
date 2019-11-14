@@ -16,11 +16,11 @@
   "files": [
     "*",
     ".gitignore",
-    "/vaadin-*.ts",
-    "/vaadin-*.d.ts",
-    "/vaadin-*.d.ts.map",
-    "/vaadin-*.js",
-    "/vaadin-*.js.map",
+    "/create-lit-element.ts",
+    "/create-lit-element.ts",
+    "/create-lit-element.ts.map",
+    "/create-lit-element.js",
+    "/create-lit-element.js.map",
     "/src/"
   ],
   "husky": {
