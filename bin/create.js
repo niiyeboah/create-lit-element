@@ -22,11 +22,12 @@ const errorMessage = 'There was an error building the workspace';
 // Note: These should all be relative to the project root directory
 const modifyFiles = [
   '.gitignore',
+  'create-lit-element.ts',
   'index.html',
+  'LICENSE',
   'README.md',
   'package.json',
   'tsconfig.json',
-  'create-lit-element.ts',
   'src/create-lit-element.ts',
   'test/unit/create-lit-element.test.ts',
   'test/visual/defualt.html',
