@@ -25,14 +25,18 @@ const modifyFiles = [
   'index.html',
   'README.md',
   'package.json',
+  'tsconfig.json',
   'create-lit-element.ts',
   'src/create-lit-element.ts',
-  'test/unit/sample.test.ts'
+  'test/unit/create-lit-element.test.ts',
+  'test/visual/defualt.html',
+  'test/visual/test.js'
 ];
 
 const renameFiles = [
   ['create-lit-element.ts', 'create-lit-element.ts'],
-  ['src/create-lit-element.ts', 'src/create-lit-element.ts']
+  ['src/create-lit-element.ts', 'src/create-lit-element.ts'],
+  ['test/unit/create-lit-element.test.ts', 'test/unit/create-lit-element.test.ts']
 ];
 
 const _promptSchemaElementName = {
@@ -60,7 +64,7 @@ const _promptSchemaElementDescription = {
 const _promptSchemaElementSuggest = {
   properties: {
     useSuggestedName: {
-      description: colors.cyan('Would you like the web component to be called "' + elementNameSuggested() + '"? ') + colors.white('[Yes/No]'),
+      description: colors.cyan('Would you like the element to be called "' + elementNameSuggested() + '"? ') + colors.white('[Yes/No]'),
       pattern: /^(y(es)?|n(o)?)$/i,
       type: 'string',
       required: true,
@@ -184,7 +188,7 @@ function elementNameSuggestedIsDefault() {
  * @param elementname
  */
 function setupElement(elementname, elementdescription) {
-  console.log(colors.cyan('\nThanks for the info. The last few changes are being made...\n'));
+  console.log(colors.cyan('\nThe last few changes are being made...\n'));
 
   // Get the Git username and email before the .git directory is removed
   let username = exec('git config user.name').stdout.trim();
@@ -202,7 +206,7 @@ function setupElement(elementname, elementdescription) {
 
   finalize();
 
-  console.log(colors.cyan("You're all set. Happy coding!") + ' :)\n');
+  console.log(colors.cyan("You're all set") + ' }>\n');
 }
 
 /**
@@ -297,15 +301,17 @@ function renameItems(elementname) {
 function finalize() {
   console.log(colors.underline.white('Finalizing'));
 
-  let gitInitOutput = exec('git init "' + path.resolve(targetDirectory) + '"', { silent: true }).stdout;
+  // Init git repo
+  let gitInitOutput = exec(
+    'git init "' + path.resolve(targetDirectory) + '"',
+    { silent: true }
+  ).stdout;
   console.log(colors.cyan(gitInitOutput.replace(/(\n|\r)+/g, '')));
 
-  // Remove '*' from template files
+  // Remove * and .gitignore from package.json files property
   let jsonPackage = path.resolve(targetDirectory, 'package.json');
   const pkg = JSON.parse(readFileSync(jsonPackage));
   pkg.files = pkg.files.slice(2);
   writeFileSync(jsonPackage, JSON.stringify(pkg, null, 2));
-  console.log(colors.cyan('Postinstall script has been removed'));
-
-  console.log('\n');
+  console.log(colors.cyan('Cleaned package.json files property\n'));
 }
