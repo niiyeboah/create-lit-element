@@ -1,7 +1,5 @@
-import { fixture, html } from '@open-wc/testing-helpers';
+import { expect, fixture, html } from '@vaadin/vaadin-component-dev-dependencies/testing.js';
 import { CreateLitElement } from '../../src/create-lit-element';
-
-const { expect } = chai;
 
 describe('sample test', () => {
   let element: CreateLitElement;
