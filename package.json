@@ -1,31 +1,32 @@
 {
-	"name": "create-lit-element",
-	"version": "0.3.3",
-	"description": "An npm initializer for creating LitElement based web components.",
-	"author": "Nii Yeboah | <contact@niiyeboah.com>",
-	"keywords": [
-		"create",
-		"scaffold",
-		"generate",
-		"npm-init",
-		"initializer"
-	],
-	"license": "MIT",
-	"bin": "bin/create.js",
-	"homepage": "https://github.com/niiyeboah/create-lit-element#readme",
-	"bugs": {
-		"url": "https://github.com/niiyeboah/create-lit-element/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/niiyeboah/create-lit-element"
-	},
-	"dependencies": {
-		"colors": "^1.4.0",
-		"fs-extra": "^7.0.1",
-		"prompt": "^1.0.0",
-		"replace-in-file": "^4.2.0",
-		"shelljs": "^0.8.3",
-		"yargs": "^13.2.1"
-	}
+  "name": "create-lit-element",
+  "version": "0.3.3",
+  "description": "An npm initializer for creating LitElement based web components.",
+  "author": "Nii Yeboah | <contact@niiyeboah.com>",
+  "keywords": [
+    "create",
+    "scaffold",
+    "generate",
+    "npm-init",
+    "initializer"
+  ],
+  "license": "MIT",
+  "bin": "bin/create.js",
+  "homepage": "https://github.com/niiyeboah/create-lit-element#readme",
+  "bugs": {
+    "url": "https://github.com/niiyeboah/create-lit-element/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/niiyeboah/create-lit-element"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "fs-extra": "^7.0.1",
+    "ora": "^4.0.3",
+    "prompt": "^1.0.0",
+    "replace-in-file": "^4.2.0",
+    "shelljs": "^0.8.3",
+    "yargs": "^13.2.1"
+  }
 }

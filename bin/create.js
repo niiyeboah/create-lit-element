@@ -9,6 +9,7 @@ const colors = require('colors');
 const path = require('path');
 const { readFileSync, writeFileSync } = require('fs');
 const { copySync, pathExistsSync, mkdirpSync } = require('fs-extra');
+const ora = require('ora');
 
 let targetDirectory = argv._[0];
 const defaultDirectory = !Boolean(targetDirectory);
@@ -206,8 +207,6 @@ function setupElement(elementname, elementdescription) {
   renameItems(elementname);
 
   finalize();
-
-  console.log(colors.cyan("You're all set") + ' }>\n');
 }
 
 /**
@@ -303,10 +302,7 @@ function finalize() {
   console.log(colors.underline.white('Finalizing'));
 
   // Init git repo
-  let gitInitOutput = exec(
-    'git init "' + path.resolve(targetDirectory) + '"',
-    { silent: true }
-  ).stdout;
+  let gitInitOutput = exec('git init "' + path.resolve(targetDirectory) + '"', { silent: true }).stdout;
   console.log(colors.cyan(gitInitOutput.replace(/(\n|\r)+/g, '')));
 
   // Remove * and .gitignore from package.json files property
@@ -315,4 +311,11 @@ function finalize() {
   pkg.files = pkg.files.slice(2);
   writeFileSync(jsonPackage, JSON.stringify(pkg, null, 2));
   console.log(colors.cyan('Cleaned package.json files property\n'));
+
+  // Install dependencies with npm
+  const installing = ora('Installing dependencies with npm\n').start();
+  exec('cd ' + path.resolve(targetDirectory) + ' && npm i &> /dev/null', () => {
+    installing.stop();
+    console.log(colors.cyan("\nYou're all set") + ' }>\n');
+  });
 }
