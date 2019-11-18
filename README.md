@@ -4,7 +4,7 @@
 
 This is an [`npm init initializer`](https://docs.npmjs.com/cli/init#description) for creating [`LitElement`](https://lit-element.polymer-project.org/) based [web components](https://www.webcomponents.org/introduction) with TypeScript.
 
-![create-lit-element](https://user-images.githubusercontent.com/3392815/68860105-7e0eb700-06f1-11ea-9d58-7fd492c1295f.gif)
+![create-lit-element](https://user-images.githubusercontent.com/3392815/69042302-a6e8c200-09f9-11ea-8941-c531056ce03f.gif)
 
 ## Usage
 
