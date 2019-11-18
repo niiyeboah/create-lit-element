@@ -17,8 +17,8 @@
     "*",
     ".gitignore",
     "/create-lit-element.ts",
-    "/create-lit-element.ts",
-    "/create-lit-element.ts.map",
+    "/create-lit-element.d.ts",
+    "/create-lit-element.d.ts.map",
     "/create-lit-element.js",
     "/create-lit-element.js.map",
     "/src/"
