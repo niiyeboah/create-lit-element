@@ -19,7 +19,6 @@ if (defaultDirectory) {
 
 const errorMessage = 'There was an error building the workspace';
 
-// Note: These should all be relative to the project root directory
 const modifyFiles = [
   '.gitignore',
   'create-lit-element.ts',
@@ -35,6 +34,7 @@ const modifyFiles = [
 ];
 
 const renameFiles = [
+  ['.npmignore', '.gitignore'],
   ['create-lit-element.ts', 'create-lit-element.ts'],
   ['src/create-lit-element.ts', 'src/create-lit-element.ts'],
   ['test/unit/create-lit-element.test.ts', 'test/unit/create-lit-element.test.ts']
