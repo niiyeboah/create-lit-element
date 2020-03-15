@@ -27,6 +27,6 @@
     "prompt": "^1.0.0",
     "replace-in-file": "^4.2.0",
     "shelljs": "^0.8.3",
-    "yargs": "^13.2.1"
+    "yargs": "^15.3.0"
   }
 }
