@@ -1,8 +1,0 @@
-{
-  "extends": "vaadin",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 2018,
-    "project": "./tsconfig.json"
-  }
-}

@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 'use strict';
 
-const { argv } = require('yargs');
+const {argv} = require('yargs');
 const _prompt = require('prompt');
-const { mv, rm, which, exec } = require('shelljs');
+const {mv, rm, which, exec} = require('shelljs');
 const replace = require('replace-in-file');
 const colors = require('colors');
 const path = require('path');
-const { readFileSync, writeFileSync } = require('fs');
-const { copySync, pathExistsSync, mkdirpSync } = require('fs-extra');
+const {pathExistsSync, mkdirpSync} = require('fs-extra');
+const glob = require('glob');
 const ora = require('ora');
 
 let targetDirectory = argv._[0];
@@ -19,27 +19,6 @@ if (defaultDirectory) {
 }
 
 const errorMessage = 'There was an error building the workspace';
-
-const modifyFiles = [
-  '.gitignore',
-  'create-lit-element.ts',
-  'index.html',
-  'LICENSE',
-  'README.md',
-  'package.json',
-  'tsconfig.json',
-  'src/create-lit-element.ts',
-  'test/unit/create-lit-element.test.ts',
-  'test/visual/defualt.html',
-  'test/visual/test.js'
-];
-
-const renameFiles = [
-  ['.npmignore', '.gitignore'],
-  ['create-lit-element.ts', 'create-lit-element.ts'],
-  ['src/create-lit-element.ts', 'src/create-lit-element.ts'],
-  ['test/unit/create-lit-element.test.ts', 'test/unit/create-lit-element.test.ts']
-];
 
 const _promptSchemaElementName = {
   properties: {
@@ -98,7 +77,7 @@ try {
     // This is being run in a CI environment, so don't ask any questions
     setupElement(elementNameSuggested(), '');
   }
-} catch(e) {
+} catch (e) {
   console.error(`${e}\n`);
   console.log(colors.red(errorMessage));
   removeTargetDirectory();
@@ -190,13 +169,13 @@ function elementNameSuggestedIsDefault() {
  * @param elementname
  */
 function setupElement(elementname, elementdescription) {
-  console.log(colors.cyan('\nThe last few changes are being made...\n'));
+  console.log('\n');
 
   // Get the Git username and email before the .git directory is removed
   let username = exec('git config user.name').stdout.trim();
   let usermail = exec('git config user.email').stdout.trim();
 
-  if (!defaultDirectory)  {
+  if (!defaultDirectory) {
     createTargetDirectory();
   }
 
@@ -218,7 +197,7 @@ function createTargetDirectory() {
     throw new Error(`The directory ${targetDirectory} already exists.`);
   } else {
     mkdirpSync(targetDirectory);
-    console.log(colors.cyan('\nSuccessfully created ') + `${targetDirectory}`);
+    console.log(colors.cyan('\nCreated ') + `${targetDirectory}`);
   }
 }
 
@@ -235,10 +214,9 @@ function removeTargetDirectory() {
  * Copies template files to the target directory.
  */
 function copyFilesToTarget() {
-  const templateDirectory = `${__dirname}/../template`;
-  console.log(colors.cyan('\nCopying files to ') + `${targetDirectory}\n`);
-  copySync(templateDirectory, targetDirectory);
-  console.log(colors.cyan('Successfully copied files to ') + `${targetDirectory}\n`);
+  const templatePath = 'git@github.com:PolymerLabs/lit-element-starter-ts.git';
+  exec(`git clone ${templatePath} ${path.resolve(targetDirectory)} --quiet`);
+  console.log(colors.cyan('Cloned files to ') + `/${targetDirectory}\n`);
 }
 
 /**
@@ -249,32 +227,21 @@ function copyFilesToTarget() {
  * @param username
  * @param usermail
  */
-function modifyContents(elementname, elementdescription, username, usermail) {
+function modifyContents(elementname, elementdescription, username) {
   console.log(colors.underline.white('Modified'));
-
   const elementclassname = elementname
     .split('-')
     .map((c) => c[0].toUpperCase() + c.slice(1))
     .join('');
-
-  const files = modifyFiles.map((f) => path.resolve(targetDirectory, f));
+  const files = glob.sync(`${targetDirectory}/**/*`).map((f) => f.replace(`${targetDirectory}/`, ''));
+  const from = [/my-element/g, /MyElement/g, /A simple web component/g, /The Polymer Authors/g];
+  const to = [elementname, elementclassname, elementdescription, username];
   try {
-    replace.sync({
-      files,
-      from: [
-        /create-lit-element/g,
-        /CreateLitElement/g,
-        /--elementdescription--/g,
-        /--username--/g,
-        /--usermail--/g
-      ],
-      to: [elementname, elementclassname, elementdescription, username, usermail]
-    });
-    console.log(colors.cyan(modifyFiles.join('\n')));
+    replace.sync({files: files.map((f) => path.resolve(targetDirectory, f)), from, to});
+    console.log(colors.cyan(from.map((f, i) => `${f} -> ${colors.white(to[i])}`).join('\n')));
   } catch (error) {
     console.error('An error occurred modifying the file: ', error);
   }
-
   console.log('\n');
 }
 
@@ -285,13 +252,15 @@ function modifyContents(elementname, elementdescription, username, usermail) {
  */
 function renameItems(elementname) {
   console.log(colors.underline.white('Renamed'));
-
-  renameFiles.forEach(function(files) {
-    const newFilename = files[1].replace(/create-lit-element/g, elementname);
+  const renameFiles = glob
+    .sync(`${targetDirectory}/**/*my-element*`)
+    .map((f) => f.replace(`${targetDirectory}/`, ''))
+    .map((f) => [f, f.replace('my-element', elementname)]);
+  renameFiles.forEach((files) => {
+    const newFilename = files[1];
     mv(path.resolve(targetDirectory, files[0]), path.resolve(targetDirectory, newFilename));
-    console.log(colors.cyan(files[0] + ' => ' + newFilename));
+    console.log(colors.cyan(files[0] + ' -> ') + newFilename);
   });
-
   console.log('\n');
 }
 
@@ -302,20 +271,10 @@ function finalize() {
   console.log(colors.underline.white('Finalizing'));
 
   // Init git repo
-  let gitInitOutput = exec('git init "' + path.resolve(targetDirectory) + '"', { silent: true }).stdout;
-  console.log(colors.cyan(gitInitOutput.replace(/(\n|\r)+/g, '')));
-
-  // Remove * and .gitignore from package.json files property
-  let jsonPackage = path.resolve(targetDirectory, 'package.json');
-  const pkg = JSON.parse(readFileSync(jsonPackage));
-  pkg.files = pkg.files.slice(2);
-  writeFileSync(jsonPackage, JSON.stringify(pkg, null, 2));
-  console.log(colors.cyan('Cleaned package.json files property\n'));
+  let gitInitOutput = exec('git init "' + path.resolve(targetDirectory) + '"', {silent: true}).stdout;
+  console.log(colors.cyan(gitInitOutput.replace(/(\n|\r)+/g, '') + '\n'));
 
   // Install dependencies with npm
   const installing = ora('Installing dependencies with npm\n').start();
-  exec('cd ' + path.resolve(targetDirectory) + ' && npm i &> /dev/null', () => {
-    installing.stop();
-    console.log(colors.cyan("\nYou're all set") + ' }>\n');
-  });
+  exec('cd ' + path.resolve(targetDirectory) + ' && npm i &> /dev/null', () => installing.stop());
 }
