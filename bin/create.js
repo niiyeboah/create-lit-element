@@ -271,6 +271,7 @@ function finalize() {
   console.log(colors.underline.white('Finalizing'));
 
   // Init git repo
+  exec(`rm -rf ${path.resolve(targetDirectory)}/.git`);
   let gitInitOutput = exec('git init "' + path.resolve(targetDirectory) + '"', {silent: true}).stdout;
   console.log(colors.cyan(gitInitOutput.replace(/(\n|\r)+/g, '') + '\n'));
 
