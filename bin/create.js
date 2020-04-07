@@ -27,9 +27,9 @@ const _promptSchemaElementName = {
       pattern: /^[a-z]+(\-[a-z]+)*$/,
       type: 'string',
       required: true,
-      message: '"kebab-case" uses lowercase letters, and hyphens for any punctuation'
-    }
-  }
+      message: '"kebab-case" uses lowercase letters, and hyphens for any punctuation',
+    },
+  },
 };
 
 const _promptSchemaElementDescription = {
@@ -37,9 +37,9 @@ const _promptSchemaElementDescription = {
     description: {
       description: colors.cyan('Please provide a description of the element'),
       pattern: /.*/,
-      type: 'string'
-    }
-  }
+      type: 'string',
+    },
+  },
 };
 
 const _promptSchemaElementSuggest = {
@@ -49,9 +49,9 @@ const _promptSchemaElementSuggest = {
       pattern: /^(y(es)?|n(o)?)$/i,
       type: 'string',
       required: true,
-      message: 'You need to type "Yes" or "No" to continue...'
-    }
-  }
+      message: 'You need to type "Yes" or "No" to continue...',
+    },
+  },
 };
 
 _prompt.start();
@@ -214,7 +214,7 @@ function removeTargetDirectory() {
  * Copies template files to the target directory.
  */
 function copyFilesToTarget() {
-  const templatePath = 'git@github.com:PolymerLabs/lit-element-starter-ts.git';
+  const templatePath = 'https://github.com/PolymerLabs/lit-element-starter-ts.git';
   exec(`git clone ${templatePath} ${path.resolve(targetDirectory)} --quiet`);
   console.log(colors.cyan('Cloned files to ') + `/${targetDirectory}\n`);
 }
