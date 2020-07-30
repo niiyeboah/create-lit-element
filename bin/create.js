@@ -24,12 +24,12 @@ const _promptSchemaElementName = {
   properties: {
     element: {
       description: colors.cyan('What do you want the element to be called? (use kebab-case)'),
-      pattern: /^[a-z]+(\-[a-z]+)*$/,
+      pattern: /^[a-z][a-z0-9]*(\-[a-z0-9]+)*$/,
       type: 'string',
       required: true,
-      message: '"kebab-case" uses lowercase letters, and hyphens for any punctuation',
-    },
-  },
+      message: '"kebab-case" uses lowercase letters, and hyphens for any punctuation'
+    }
+  }
 };
 
 const _promptSchemaElementDescription = {
@@ -37,9 +37,9 @@ const _promptSchemaElementDescription = {
     description: {
       description: colors.cyan('Please provide a description of the element'),
       pattern: /.*/,
-      type: 'string',
-    },
-  },
+      type: 'string'
+    }
+  }
 };
 
 const _promptSchemaElementSuggest = {
@@ -49,9 +49,9 @@ const _promptSchemaElementSuggest = {
       pattern: /^(y(es)?|n(o)?)$/i,
       type: 'string',
       required: true,
-      message: 'You need to type "Yes" or "No" to continue...',
-    },
-  },
+      message: 'You need to type "Yes" or "No" to continue...'
+    }
+  }
 };
 
 _prompt.start();
