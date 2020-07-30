@@ -233,7 +233,7 @@ function modifyContents(elementname, elementdescription, username) {
     .split('-')
     .map((c) => c[0].toUpperCase() + c.slice(1))
     .join('');
-  const files = glob.sync(`${targetDirectory}/**/*`).map((f) => f.replace(`${targetDirectory}/`, ''));
+  const files = glob.sync(`${targetDirectory}/**/*`, { dot: true }).map((f) => f.replace(`${targetDirectory}/`, ''));
   const from = [/my-element/g, /MyElement/g, /A simple web component/g, /The Polymer Authors/g];
   const to = [elementname, elementclassname, elementdescription, username];
   try {
