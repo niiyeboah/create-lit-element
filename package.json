@@ -1,6 +1,6 @@
 {
   "name": "create-lit-element",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "An npm initializer for creating LitElement based web components.",
   "author": "Nii Yeboah | <contact@niiyeboah.com>",
   "keywords": [
